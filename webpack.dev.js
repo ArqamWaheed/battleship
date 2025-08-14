@@ -1,11 +1,11 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const { merge } = require("webpack-merge");
+const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
-  mode: 'development',
+  mode: "development",
   devtool: "eval-source-map",
   devServer: {
-    watchFiles: ["./src/index.html", "./src/images/*"], 
+    watchFiles: ["./src/index.html", "./src/images/*"],
     open: true,
   },
   module: {
@@ -15,5 +15,5 @@ module.exports = merge(common, {
         use: ["style-loader", "css-loader"],
       },
     ],
-    },
+  },
 });
