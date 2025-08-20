@@ -5,11 +5,28 @@ import prettier from "eslint-config-prettier";
 export default defineConfig([
   {
     files: ["**/*.js"],
-    plugins: {
-      js,
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        // Browser globals
+        document: "readonly",
+        window: "readonly",
+        fetch: "readonly",
+        console: "readonly",
+        // Node.js globals
+        require: "readonly",
+        module: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        process: "readonly",
+        global: "readonly",
+        Buffer: "readonly",
+      },
     },
-    extends: ["js/recommended", prettier],
     rules: {
+      ...js.configs.recommended.rules,
+      ...prettier.rules,
       "no-unused-vars": "warn",
       "no-undef": "warn",
     },
