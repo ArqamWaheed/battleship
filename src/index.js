@@ -16,7 +16,24 @@ function Ship(length) {
   const getHitsReceived = function () {
     return hitsReceived;
   };
-  return { hit, isSunk, getHitsReceived };
+
+  const getLength = function() {
+    return length;
+  };
+
+  return { hit, isSunk, getHitsReceived, getLength };
 }
 
-export { Ship };
+class Gameboard {
+  constructor() { 
+    this.aircraft = Ship(5);
+    this.battleship = Ship(4);
+    this.cruiser = Ship(3);
+    this.destroyer1 = Ship(2);
+    this.destroyer2 = Ship(2);
+    this.submarine1 = Ship(1);
+    this.submarine1 = Ship(1);
+  }
+}
+
+export { Ship, Gameboard };
