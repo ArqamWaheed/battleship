@@ -55,7 +55,13 @@ class Gameboard {
         this.board[Math.min(x1, x2) + i][y1] = shipName;
       }
     }
+    if (y1 - y2 !== 0) {
+      for (let i = 1; i < Math.abs(y1 - y2) + 1; i++) {
+        this.board[x1][Math.min(y1, y2) + i] = shipName;
+      }
+    }
     this.board[x2][y2] = shipName;
+    return;
   }
 
   verifyCoordinates(x, y) {
