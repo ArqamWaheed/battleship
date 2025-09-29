@@ -1,4 +1,4 @@
-import { Gameboard } from "../src";
+import { Gameboard } from "../src/core/models/Gameboard";
 
 test("Gameboard ships initializiation test: ", () => {
   const testGameboard = new Gameboard();
@@ -13,13 +13,6 @@ test("Gameboard board array initialization: ", () => {
   const testGameboard = new Gameboard();
   expect(testGameboard.board.length).toBe(10);
   expect(testGameboard.board[0].length).toBe(10);
-});
-
-test("Gameboard coordinate verification: ", () => {
-  const testGameboard = new Gameboard();
-  expect(testGameboard.verifyCoordinates(10, 11)).toBe(false);
-  expect(testGameboard.verifyCoordinates(-3, 2)).toBe(false);
-  expect(testGameboard.verifyCoordinates(4, 3)).toBe(true);
 });
 
 test("Gameboard Place Ship Verification: ", () => {

@@ -1,4 +1,4 @@
-import { Ship } from "../src";
+import { Ship } from "../src/core/models/Ships";
 
 test("Ships hit received: ", () => {
   let testShip = Ship(4);
