@@ -47,3 +47,150 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+:root {
+  --backgroundBlack: #212529;
+  --blackText: oklch(0.2621 0.002 248.19);
+  --blackShadow: oklch(0.24 0.002 248.19);
+}
+
+body {
+  color: var(--blackText);
+}
+.main {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--backgroundBlack);
+}
+
+.header {
+  flex-grow: 0;
+  align-content: center;
+  text-align: center;
+  border-radius: 15px;
+  border: 5px solid var(--blackText);
+  width: 40vw;
+  padding: 15px 0;
+  background-color: white;
+  box-shadow: 10px 10px 8px var(--blackShadow);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+.header span {
+  color: oklch(0 0 255);
+  font-weight: 900;
+}
+
+.container {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  width: 90vw;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.board1,
+.board2 {
+  background-color: white;
+  border: 3px solid var(--blackText);
+  border-radius: 10px;
+  padding: 10px;
+  flex: 0 1 auto;
+  width: calc(45vw - 25px);
+  max-width: 500px;
+  aspect-ratio: 1;
+  min-width: 300px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  gap: 2px;
+  height: 100%;
+  width: 100%;
+}
+
+.grid-cell {
+  background-color: #f8f9fa;
+  border: 1px solid var(--blackText);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  aspect-ratio: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+.grid-cell:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.grid-cell.header-cell {
+  background-color: var(--blackText);
+  color: white;
+  font-weight: bold;
+}
+
+.grid-cell.ship {
+  background-color: #28a745;
+}
+
+.grid-cell.hit {
+  background-color: #dc3545;
+}
+
+.grid-cell.miss {
+  background-color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    width: 95vw;
+    gap: 25px;
+  }
+
+  .board1,
+  .board2 {
+    width: 90vw;
+    max-width: 400px;
+    min-width: 280px;
+  }
+
+  .grid-cell {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    width: 90vw;
+  }
+
+  .board1,
+  .board2 {
+    width: 95vw;
+    max-width: 350px;
+    min-width: 250px;
+  }
+
+  .grid-cell {
+    font-size: 0.6rem;
+  }
+}
