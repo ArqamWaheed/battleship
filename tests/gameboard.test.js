@@ -40,7 +40,7 @@ test("Gameboard receiveAttack functionality", () => {
   expect(testGameboard.missedShots).toEqual([coordinatesMiss]);
 });
 
-test("Gameboard all sunk functions, tests ship hit functionality aswell.", () => {
+test("Gameboard all sunk functions", () => {
   const testGameboard = new Gameboard();
   expect(testGameboard.checkAllShipsSunk()).toBe(false);
 
