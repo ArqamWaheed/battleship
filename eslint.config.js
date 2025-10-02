@@ -28,7 +28,7 @@ export default defineConfig([
       ...js.configs.recommended.rules,
       ...prettier.rules,
       "no-unused-vars": "off",
-      "no-undef": "warn",
+      "no-undef": "off",
     },
   },
 ]);

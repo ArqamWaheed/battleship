@@ -1,7 +1,6 @@
 export function createGameGrid(containerId) {
   const container = document.querySelector(containerId);
-  const grid = document.createElement("div");
-  grid.className = "grid";
+  const grid = container.querySelector(".grid");
 
   for (let row = 0; row < 11; row++) {
     for (let col = 0; col < 11; col++) {
