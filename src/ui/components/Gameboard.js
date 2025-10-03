@@ -1,5 +1,11 @@
 import { Player, Computer } from "../../core/services/gameboardService.js";
-import { $gridPlayer, $gridComputer } from "../utils/DOMcache.js";
+import { AppState } from "../../core/state/AppState.js";
+import {
+  $gridPlayer,
+  $gridComputer,
+  $boardPlayer,
+  $boardComputer,
+} from "../utils/DOMcache.js";
 
 function renderShips() {
   for (const i in Player.board) {
@@ -11,6 +17,16 @@ function renderShips() {
         $shipGridCell.classList.add("ship");
       }
     }
+  }
+}
+
+function renderSwitchedTurn() {
+  if (AppState.getCurrentTurn() == "Player") {
+    $boardPlayer.style.opacity = 0.5;
+    $boardComputer.style.opacity = 1;
+  } else {
+    $boardPlayer.style.opacity = 1;
+    $boardComputer.style.opacity = 0.5;
   }
 }
 
@@ -29,4 +45,4 @@ function extractCoordinates(element) {
   return [xCoord, yCoord];
 }
 
-export { renderShips, extractCoordinates, renderAttack };
+export { renderShips, extractCoordinates, renderAttack, renderSwitchedTurn };
