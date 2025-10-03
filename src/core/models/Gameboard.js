@@ -67,9 +67,11 @@ class Gameboard {
     ) {
       // Call hit method if ship exists
       this.board[x1][y1].hit(); // call the hit method on the ship instance.
+      return "hit";
     } else if (!this.missedShots.includes(coordinates)) {
       // Add to misses if the coordinate has not already been struck
       this.missedShots.push(coordinates);
+      return "miss";
     } else {
       throw Error("Wtf how u genuinely get here"); // Called the method, theres no ship here and it was a miss coordinate which should not be called in the first place
     }
