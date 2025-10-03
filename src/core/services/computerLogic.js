@@ -1,10 +1,8 @@
 import { Computer } from "./gameboardService.js";
 
 function computerCoordinateToPlay() {
-  return Computer.playableMoves.splice(
-    [Math.floor(Math.random() * Computer.playableMoves.length)],
-    1,
-  );
+  const index = Math.floor(Math.random() * Computer.playableMoves.length);
+  return Computer.playableMoves.splice(index, 1)[0];
 }
 
 export { computerCoordinateToPlay };
