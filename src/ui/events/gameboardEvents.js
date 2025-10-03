@@ -1,5 +1,6 @@
 import { Computer } from "../../core/services/gameboardService.js";
 import { AppState } from "../../core/state/AppState.js";
+import { computerPlayMove } from "../components/Computer.js";
 import {
   extractCoordinates,
   renderAttack,
@@ -16,6 +17,9 @@ $gridComputer.addEventListener("click", function (e) {
       renderAttack(Computer, state, coordinates);
       AppState.switchTurn();
       renderSwitchedTurn();
+      computerPlayMove();
     }
   }
 });
+
+console.log(Computer.playableMoves[0]);

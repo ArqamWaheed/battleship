@@ -10,6 +10,7 @@ class Gameboard {
     this.submarine1 = Ship(1);
     this.submarine2 = Ship(1);
     this.board = this.#initializeGameboard();
+    this.playableMoves = this.#initializePlayableMoves();
     this.missedShots = []; // 2D Array containing all the missed shots
   }
 
@@ -19,6 +20,16 @@ class Gameboard {
       board[i] = Array(10).fill(null);
     }
     return board;
+  }
+
+  #initializePlayableMoves() {
+    const playableMoves = [];
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        playableMoves.push([i, j]);
+      }
+    }
+    return playableMoves;
   }
 
   placeShip(shipName, startingCoord, endingCoord) {
