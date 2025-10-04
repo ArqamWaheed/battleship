@@ -83,10 +83,11 @@ const AppState = (function () {
     return;
   };
 
-  const attackInitiated = function (coordinates) {
+  const attackInitiated = function (coordinates, shipName) {
     notify("attackInitiated", {
       currentTurn: currentTurn,
       coordinates: coordinates,
+      shipName: shipName,
       GetTurnAttack,
     });
   };

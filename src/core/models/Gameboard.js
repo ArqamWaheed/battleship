@@ -4,30 +4,29 @@ import { Ship } from "./Ships.js";
 class Gameboard {
   constructor(name) {
     this.instanceName = name;
-    this.aircraft = Ship(5);
-    this.battleship = Ship(4);
-    this.cruiser = Ship(3);
-    this.destroyer1 = Ship(2);
-    this.destroyer2 = Ship(2);
-    this.submarine1 = Ship(1);
-    this.submarine2 = Ship(1);
+    this.aircraft = { ...Ship(5), name: "aircraft" };
+    this.battleship = { ...Ship(4), name: "battleship" };
+    this.cruiser = { ...Ship(3), name: "cruiser" };
+    this.destroyer1 = { ...Ship(2), name: "destroyer1" };
+    this.destroyer2 = { ...Ship(2), name: "destroyer2" };
+    this.submarine1 = { ...Ship(1), name: "submarine1" };
+    this.submarine2 = { ...Ship(1), name: "submarine2" };
     this.board = this.#initializeGameboard();
     this.playableMoves = this.#initializePlayableMoves();
     this.missedShots = []; // 2D Array containing all the missed shots
   }
 
   resetGameboard() {
-    this.instanceName = name;
-    this.aircraft = Ship(5);
-    this.battleship = Ship(4);
-    this.cruiser = Ship(3);
-    this.destroyer1 = Ship(2);
-    this.destroyer2 = Ship(2);
-    this.submarine1 = Ship(1);
-    this.submarine2 = Ship(1);
+    this.aircraft = { ...Ship(5), name: "aircraft" };
+    this.battleship = { ...Ship(4), name: "battleship" };
+    this.cruiser = { ...Ship(3), name: "cruiser" };
+    this.destroyer1 = { ...Ship(2), name: "destroyer1" };
+    this.destroyer2 = { ...Ship(2), name: "destroyer2" };
+    this.submarine1 = { ...Ship(1), name: "submarine1" };
+    this.submarine2 = { ...Ship(1), name: "submarine2" };
     this.board = this.#initializeGameboard();
     this.playableMoves = this.#initializePlayableMoves();
-    this.missedShots = [];
+    this.missedShots = []; // 2D Array containing all the missed shots
   }
 
   #initializeGameboard() {

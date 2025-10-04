@@ -4,6 +4,8 @@ import {
   $gridComputer,
   $boardPlayer,
   $boardComputer,
+  $statusGridPlayer,
+  $statusGridComputer,
 } from "../utils/DOMcache.js";
 
 function renderShips() {
@@ -32,18 +34,35 @@ function renderSwitchedTurn(state) {
 
 function renderAttack(data) {
   const [x, y] = data.coordinates;
+
   const $gridToRender =
     data.currentTurn === Player ? $gridComputer : $gridPlayer;
+
+  const $StatusGridToRender =
+    data.currentTurn === Player ? $statusGridComputer : $statusGridPlayer;
+
   const $gridCell = $gridToRender.querySelector(
     `[data-row="${x}"][data-col="${y}"]`,
   );
   $gridCell.classList.add(data.GetTurnAttack());
+  if (data.shipName !== null) {
+    // Render the small grid if hit connects
+    $StatusGridToRender
+      .querySelector(`[data-ship="${data.shipName}"] .ship-block:not(.hit)`)
+      .classList.add("hit");
+  }
 }
 
 function extractCoordinates(element) {
   const xCoord = parseInt(element.dataset.row, 10);
   const yCoord = parseInt(element.dataset.col, 10);
   return [xCoord, yCoord];
+}
+
+function identifyShipAtCoordinate(coordinate, object) {
+  const [x, y] = coordinate;
+  if (object.board[x][y]?.name) return object.board[x][y].name;
+  return null;
 }
 
 function renderGameEnd(data) {
@@ -56,4 +75,5 @@ export {
   renderAttack,
   renderSwitchedTurn,
   renderGameEnd,
+  identifyShipAtCoordinate,
 };
