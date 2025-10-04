@@ -16,6 +16,20 @@ class Gameboard {
     this.missedShots = []; // 2D Array containing all the missed shots
   }
 
+  resetGameboard() {
+    this.instanceName = name;
+    this.aircraft = Ship(5);
+    this.battleship = Ship(4);
+    this.cruiser = Ship(3);
+    this.destroyer1 = Ship(2);
+    this.destroyer2 = Ship(2);
+    this.submarine1 = Ship(1);
+    this.submarine2 = Ship(1);
+    this.board = this.#initializeGameboard();
+    this.playableMoves = this.#initializePlayableMoves();
+    this.missedShots = [];
+  }
+
   #initializeGameboard() {
     const board = [];
     for (let i = 0; i < 10; i++) {
