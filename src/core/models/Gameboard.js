@@ -117,6 +117,74 @@ class Gameboard {
       this.submarine2.isSunk()
     );
   }
+
+  randomizeShipPlacement() {
+    // List of ships with their corresponding objects and lengths
+    const ships = [
+      { ship: this.aircraft, length: 5 },
+      { ship: this.battleship, length: 4 },
+      { ship: this.cruiser, length: 3 },
+      { ship: this.destroyer1, length: 2 },
+      { ship: this.destroyer2, length: 2 },
+      { ship: this.submarine1, length: 1 },
+      { ship: this.submarine2, length: 1 },
+    ];
+
+    // Place each ship randomly
+    for (const { ship, length } of ships) {
+      let placed = false;
+
+      while (!placed) {
+        // Random orientation: 0 = horizontal, 1 = vertical
+        const isVertical = Math.random() < 0.5;
+
+        // Random starting position
+        const x = Math.floor(Math.random() * 10);
+        const y = Math.floor(Math.random() * 10);
+
+        // Calculate ending position based on orientation
+        let endX = x;
+        let endY = y;
+
+        if (isVertical) {
+          endX = x + (length - 1);
+        } else {
+          endY = y + (length - 1);
+        }
+
+        // Check if placement is valid
+        if (endX < 10 && endY < 10) {
+          try {
+            // Check if all positions are free
+            let canPlace = true;
+            if (isVertical) {
+              for (let i = 0; i < length; i++) {
+                if (!this.#verifyOccupiedCoordinates(x + i, y)) {
+                  canPlace = false;
+                  break;
+                }
+              }
+            } else {
+              for (let i = 0; i < length; i++) {
+                if (!this.#verifyOccupiedCoordinates(x, y + i)) {
+                  canPlace = false;
+                  break;
+                }
+              }
+            }
+
+            if (canPlace) {
+              this.placeShip(ship, [x, y], [endX, endY]);
+              placed = true;
+            }
+          } catch (error) {
+            // If placement fails, try again
+            continue;
+          }
+        }
+      }
+    }
+  }
 }
 
 export { Gameboard };
