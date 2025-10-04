@@ -20,8 +20,9 @@ function renderShips() {
   }
 }
 
-function renderSwitchedTurn() {
-  if (AppState.getCurrentTurn() == "Player") {
+// Observer function - reacts to turnSwitches
+function renderSwitchedTurn(state) {
+  if (state.currentTurn === "Player") {
     $boardPlayer.style.opacity = 0.5;
     $boardComputer.style.opacity = 1;
   } else {
@@ -32,7 +33,7 @@ function renderSwitchedTurn() {
 
 function renderAttack(object, state, coordinates) {
   const [x, y] = coordinates;
-  const $gridToRender = object == Computer ? $gridComputer : $gridPlayer;
+  const $gridToRender = object === Computer ? $gridComputer : $gridPlayer;
   const $gridCell = $gridToRender.querySelector(
     `[data-row="${x}"][data-col="${y}"]`,
   );

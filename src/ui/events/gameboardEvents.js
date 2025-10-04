@@ -16,7 +16,6 @@ $gridComputer.addEventListener("click", function (e) {
       const state = Computer.receiveAttack(coordinates); // hit or miss state
       renderAttack(Computer, state, coordinates);
       AppState.switchTurn();
-      renderSwitchedTurn();
       computerPlayMove();
     }
   }

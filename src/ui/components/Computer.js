@@ -11,7 +11,6 @@ async function computerPlayMove() {
   const state = Player.receiveAttack(coordinates); // hit or miss state
   renderAttack(Player, state, coordinates);
   AppState.switchTurn();
-  renderSwitchedTurn();
 }
 
 export { computerPlayMove };
