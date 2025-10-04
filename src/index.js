@@ -10,12 +10,16 @@ import {
 } from "./ui/components/Gameboard.js";
 import "./ui/events/gameboardEvents.js";
 import { AppState } from "./core/state/AppState.js";
+import "./ui/events/modalEvents.js";
 
 AppState.subscribe("turnSwitched", renderSwitchedTurn);
 AppState.subscribe("attackInitiated", Player.receiveAttack);
 AppState.subscribe("attackInitiated", Computer.receiveAttack);
 AppState.subscribe("attackInitiated", renderAttack);
+AppState.subscribe("endGame", Computer.resetGameboard);
+AppState.subscribe("endGame", Player.resetGameboard);
 AppState.subscribe("endGame", renderGameEnd);
+AppState.subscribe("endGame", () => AppState.initialize(Player, Computer));
 
 // Initialize the grid
 document.addEventListener("DOMContentLoaded", () => {

@@ -7,6 +7,8 @@ import {
   $statusGridPlayer,
   $statusGridComputer,
 } from "../utils/DOMcache.js";
+import { createGameGrid } from "../utils/gameboardInit.js";
+import { toggleModal } from "./Modal.js";
 
 function renderShips() {
   for (const i in Player.board) {
@@ -32,6 +34,13 @@ function renderSwitchedTurn(state) {
   }
 }
 
+function flushGameboards() {
+  // Remove all hit classes from status grids
+  const allHitBlocks = document.querySelectorAll(".ship-block.hit");
+  allHitBlocks.forEach((block) => block.classList.remove("hit"));
+  $gridComputer.replaceChildren();
+  $gridPlayer.replaceChildren();
+}
 function renderAttack(data) {
   const [x, y] = data.coordinates;
 
@@ -66,7 +75,29 @@ function identifyShipAtCoordinate(coordinate, object) {
 }
 
 function renderGameEnd(data) {
-  console.log(data.winner.instanceName);
+  const winner = data.winner.instanceName;
+
+  toggleModal(winner);
+  flushGameboards();
+  createGameGrid(".board1");
+  createGameGrid(".board2");
+  Player.placeShip(Player.aircraft, [2, 1], [2, 5]);
+  Player.placeShip(Player.battleship, [5, 3], [8, 3]);
+  Player.placeShip(Player.cruiser, [0, 7], [2, 7]);
+  Player.placeShip(Player.destroyer1, [7, 0], [7, 1]);
+  Player.placeShip(Player.destroyer2, [4, 8], [5, 8]);
+  Player.placeShip(Player.submarine1, [9, 5], [9, 5]);
+  Player.placeShip(Player.submarine2, [1, 9], [1, 9]);
+
+  Computer.placeShip(Computer.aircraft, [2, 1], [2, 5]);
+  Computer.placeShip(Computer.battleship, [5, 3], [8, 3]);
+  Computer.placeShip(Computer.cruiser, [0, 7], [2, 7]);
+  Computer.placeShip(Computer.destroyer1, [7, 0], [7, 1]);
+  Computer.placeShip(Computer.destroyer2, [4, 8], [5, 8]);
+  Computer.placeShip(Computer.submarine1, [9, 5], [9, 5]);
+  Computer.placeShip(Computer.submarine2, [1, 9], [1, 9]);
+  renderShips();
+  return;
 }
 
 export {
@@ -76,4 +107,5 @@ export {
   renderSwitchedTurn,
   renderGameEnd,
   identifyShipAtCoordinate,
+  flushGameboards,
 };

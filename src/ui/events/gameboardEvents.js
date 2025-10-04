@@ -4,7 +4,6 @@ import { computerPlayMove } from "../components/Computer.js";
 import {
   extractCoordinates,
   identifyShipAtCoordinate,
-  renderAttack,
 } from "../components/Gameboard.js";
 import { $gridComputer } from "../utils/DOMcache.js";
 import { validateGridCellClick } from "../utils/Validations.js";

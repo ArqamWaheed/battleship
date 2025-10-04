@@ -5,7 +5,6 @@ const Player = new Gameboard("Player");
 const Computer = new Gameboard("Computer");
 
 AppState.initialize(Player, Computer);
-AppState.setCurrentTurn(Player);
 
 Player.placeShip(Player.aircraft, [2, 1], [2, 5]);
 Player.placeShip(Player.battleship, [5, 3], [8, 3]);
