@@ -1,5 +1,4 @@
 import { Player, Computer } from "../../core/services/gameboardService.js";
-import { AppState } from "../../core/state/AppState.js";
 import {
   $gridPlayer,
   $gridComputer,
@@ -22,7 +21,7 @@ function renderShips() {
 
 // Observer function - reacts to turnSwitches
 function renderSwitchedTurn(state) {
-  if (state.currentTurn === "Player") {
+  if (state.currentTurn === Player) {
     $boardPlayer.style.opacity = 0.5;
     $boardComputer.style.opacity = 1;
   } else {
@@ -31,13 +30,14 @@ function renderSwitchedTurn(state) {
   }
 }
 
-function renderAttack(object, state, coordinates) {
-  const [x, y] = coordinates;
-  const $gridToRender = object === Computer ? $gridComputer : $gridPlayer;
+function renderAttack(data) {
+  const [x, y] = data.coordinates;
+  const $gridToRender =
+    data.currentTurn === Player ? $gridComputer : $gridPlayer;
   const $gridCell = $gridToRender.querySelector(
     `[data-row="${x}"][data-col="${y}"]`,
   );
-  $gridCell.classList.add(state);
+  $gridCell.classList.add(data.GetTurnAttack());
 }
 
 function extractCoordinates(element) {

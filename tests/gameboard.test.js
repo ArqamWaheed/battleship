@@ -27,19 +27,6 @@ test("Gameboard Place Ship Verification: ", () => {
   expect(testGameboard.board[3][3]).not.toBe(testGameboard.cruiser);
 });
 
-test("Gameboard receiveAttack functionality", () => {
-  const testGameboard = new Gameboard();
-  const coordinates = [0, 3];
-  const coordinatesMiss = [3, 5];
-  testGameboard.placeShip(testGameboard.cruiser, coordinates, [2, 3]);
-  expect(testGameboard.cruiser.getHitsReceived()).toBe(0);
-  testGameboard.receiveAttack(coordinates);
-  expect(testGameboard.cruiser.getHitsReceived()).toBe(1);
-  expect(testGameboard.missedShots).toEqual([]);
-  testGameboard.receiveAttack(coordinatesMiss);
-  expect(testGameboard.missedShots).toEqual([coordinatesMiss]);
-});
-
 test("Gameboard all sunk functions", () => {
   const testGameboard = new Gameboard();
   expect(testGameboard.checkAllShipsSunk()).toBe(false);

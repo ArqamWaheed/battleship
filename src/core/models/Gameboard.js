@@ -1,7 +1,9 @@
+import { AppState } from "../state/AppState.js";
 import { Ship } from "./Ships.js";
 
 class Gameboard {
-  constructor() {
+  constructor(name) {
+    this.instanceName = name;
     this.aircraft = Ship(5);
     this.battleship = Ship(4);
     this.cruiser = Ship(3);
@@ -43,7 +45,7 @@ class Gameboard {
     )
       throw Error("Spot already occupied");
 
-    if (!this.verifyOccupiedCoordinates) this.board[x1][y1] = shipName;
+    this.board[x1][y1] = shipName;
     if (x1 - x2 !== 0) {
       for (let i = 1; i < Math.abs(x1 - x2) + 1; i++) {
         this.board[Math.min(x1, x2) + i][y1] = shipName;
@@ -68,25 +70,29 @@ class Gameboard {
     return this.board[x][y] === null ? true : false;
   }
 
-  receiveAttack(coordinates) {
-    const [x1, y1] = coordinates;
-    this.#verifyCoordinates(x1, y1);
+  receiveAttack = (data) => {
+    if (data.currentTurn.instanceName.toString() !== this.instanceName) {
+      console.log(data.currentTurn);
+      const [x1, y1] = data.coordinates;
+      this.#verifyCoordinates(x1, y1);
 
-    if (
-      !this.#verifyOccupiedCoordinates(x1, y1) &&
-      !this.missedShots.includes(coordinates)
-    ) {
-      // Call hit method if ship exists
-      this.board[x1][y1].hit(); // call the hit method on the ship instance.
-      return "hit";
-    } else if (!this.missedShots.includes(coordinates)) {
-      // Add to misses if the coordinate has not already been struck
-      this.missedShots.push(coordinates);
-      return "miss";
-    } else {
-      throw Error("Wtf how u genuinely get here"); // Called the method, theres no ship here and it was a miss coordinate which should not be called in the first place
+      const isAlreadyMissed = this.missedShots.some(
+        ([x, y]) => x === x1 && y === y1,
+      );
+
+      if (!this.#verifyOccupiedCoordinates(x1, y1) && !isAlreadyMissed) {
+        this.board[x1][y1].hit();
+        AppState.SetTurnAttack("hit");
+        return;
+      } else if (!isAlreadyMissed) {
+        this.missedShots.push(data.coordinates);
+        AppState.SetTurnAttack("miss");
+        return;
+      } else {
+        throw Error("Coordinate already attacked");
+      }
     }
-  }
+  };
 
   checkAllShipsSunk() {
     return (
@@ -97,7 +103,7 @@ class Gameboard {
       this.destroyer2.isSunk() &&
       this.submarine1.isSunk() &&
       this.submarine2.isSunk()
-    ); // Note: you had submarine1 twice, should be submarine2
+    );
   }
 }
 
