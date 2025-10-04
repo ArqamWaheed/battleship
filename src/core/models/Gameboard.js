@@ -72,7 +72,6 @@ class Gameboard {
 
   receiveAttack = (data) => {
     if (data.currentTurn.instanceName.toString() !== this.instanceName) {
-      console.log(data.currentTurn);
       const [x1, y1] = data.coordinates;
       this.#verifyCoordinates(x1, y1);
 

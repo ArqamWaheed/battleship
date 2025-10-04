@@ -10,10 +10,10 @@ $gridComputer.addEventListener("click", function (e) {
     if (validateGridCellClick(e.target)) {
       const coordinates = extractCoordinates(e.target);
       AppState.attackInitiated(coordinates); // hit or miss state
-      AppState.switchTurn();
-      computerPlayMove();
+      if (AppState.checkGameEnd() == false) {
+        AppState.switchTurn();
+        computerPlayMove();
+      }
     }
   }
 });
-
-console.log(Computer.playableMoves[0]);

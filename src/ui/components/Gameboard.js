@@ -41,9 +41,19 @@ function renderAttack(data) {
 }
 
 function extractCoordinates(element) {
-  const xCoord = element.dataset.row;
-  const yCoord = element.dataset.col;
+  const xCoord = parseInt(element.dataset.row, 10);
+  const yCoord = parseInt(element.dataset.col, 10);
   return [xCoord, yCoord];
 }
 
-export { renderShips, extractCoordinates, renderAttack, renderSwitchedTurn };
+function renderGameEnd(data) {
+  console.log(data.winner.instanceName);
+}
+
+export {
+  renderShips,
+  extractCoordinates,
+  renderAttack,
+  renderSwitchedTurn,
+  renderGameEnd,
+};

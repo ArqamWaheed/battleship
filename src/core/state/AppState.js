@@ -4,10 +4,13 @@ const AppState = (function () {
   let turnAttack = "miss";
   let Player;
   let Computer;
+  let winner;
 
   const initialize = function (player, computer) {
     Player = player;
     Computer = computer;
+    winner = null;
+    currentTurn = player;
   };
 
   // Subscribe to specific events
@@ -27,7 +30,13 @@ const AppState = (function () {
   // Notify all subscribers of a specific event
   const notify = function (eventType, data) {
     if (!observers[eventType]) return;
-    observers[eventType].forEach((callback) => callback(data));
+    observers[eventType].forEach((callback) => {
+      try {
+        callback(data);
+      } catch (error) {
+        console.error(`Error in ${eventType} observer:`, error);
+      }
+    });
   };
 
   const setCurrentTurn = function (value) {
@@ -42,6 +51,7 @@ const AppState = (function () {
   const getState = function () {
     return {
       currentTurn,
+      winner,
     };
   };
 
@@ -51,6 +61,19 @@ const AppState = (function () {
 
   function GetTurnAttack() {
     return turnAttack;
+  }
+
+  function checkGameEnd() {
+    if (Player.checkAllShipsSunk()) {
+      winner = Computer;
+      notify("endGame", getState());
+      return true;
+    } else if (Computer.checkAllShipsSunk()) {
+      winner = Player;
+      notify("endGame", getState());
+      return true;
+    }
+    return false;
   }
 
   const switchTurn = function () {
@@ -80,6 +103,7 @@ const AppState = (function () {
     GetTurnAttack,
     setCurrentTurn,
     initialize,
+    checkGameEnd,
   };
 })();
 

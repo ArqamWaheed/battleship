@@ -9,7 +9,9 @@ async function computerPlayMove() {
   const coordinates = computerCoordinateToPlay(); // get the coordinates u want to play
   await delay(1000);
   AppState.attackInitiated(coordinates);
-  AppState.switchTurn();
+  if (AppState.checkGameEnd() == false) {
+    AppState.switchTurn();
+  }
 }
 
 export { computerPlayMove };
